@@ -13,7 +13,7 @@ object SunnyWeatherNetWork {
 
     private val weatherService  = ""
 
-    private val placeService = ServiceCreator.create(PlaceService::class.java)
+    private val placeService = ServiceCreator.create<PlaceService>()
 
     suspend fun searchPlace(query: String) = placeService.searchPlace(query).await()
 
@@ -29,7 +29,6 @@ object SunnyWeatherNetWork {
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     continuation.resumeWithException(t)
                 }
-
             })
         }
     }
