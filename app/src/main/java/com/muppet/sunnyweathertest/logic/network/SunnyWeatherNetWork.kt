@@ -1,5 +1,7 @@
 package com.muppet.sunnyweathertest.logic.network
 
+import android.util.Log
+import com.muppet.sunnyweathertest.logic.mode.PlaceResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +17,10 @@ object SunnyWeatherNetWork {
 
     private val placeService = ServiceCreator.create<PlaceService>()
 
-    suspend fun searchPlace(query: String) = placeService.searchPlace(query).await()
+    suspend fun searchPlace(query: String) : PlaceResponse {
+        Log.e("999", "searchPlace: " + query)
+        return placeService.searchPlace(query).await()
+    }
 
     private suspend fun <T> Call<T>.await(): T{
         return suspendCoroutine { continuation ->
