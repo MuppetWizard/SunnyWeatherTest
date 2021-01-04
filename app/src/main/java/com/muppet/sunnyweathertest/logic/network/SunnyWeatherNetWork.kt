@@ -1,19 +1,18 @@
 package com.muppet.sunnyweathertest.logic.network
 
 import android.util.Log
+import com.muppet.sunnyweathertest.logic.mode.DailyResponse
 import com.muppet.sunnyweathertest.logic.mode.PlaceResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.await
-import java.lang.RuntimeException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 object SunnyWeatherNetWork {
 
-    private val weatherService  = ""
+    private val weatherService  = ServiceCreator.create<WeatherService>()
 
     private val placeService = ServiceCreator.create<PlaceService>()
 
@@ -21,6 +20,13 @@ object SunnyWeatherNetWork {
         Log.e("999", "searchPlace: " + query)
         return placeService.searchPlace(query).await()
     }
+
+    suspend fun getDailyWeather(lng: String, lat: String) : DailyResponse {
+        return weatherService.getDailyWeather(lng,lat).await()
+    }
+
+    suspend fun getRealtimeWeather(lng: String, lat: String) =
+        weatherService.getRealtimeWeather(lng,lat).await()
 
     private suspend fun <T> Call<T>.await(): T{
         return suspendCoroutine { continuation ->
