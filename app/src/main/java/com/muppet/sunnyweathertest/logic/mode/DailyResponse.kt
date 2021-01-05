@@ -27,7 +27,7 @@ data class DailyResponse(
 
     data class Skycon (
         val value: String,
-        val data: Date
+        val date: Date
     )
 
     data class LifeIndex (
