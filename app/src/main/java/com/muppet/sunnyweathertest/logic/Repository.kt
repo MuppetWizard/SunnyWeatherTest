@@ -1,6 +1,8 @@
 package com.muppet.sunnyweathertest.logic
 
 import androidx.lifecycle.liveData
+import com.muppet.sunnyweathertest.logic.dao.PlaceDao
+import com.muppet.sunnyweathertest.logic.mode.Place
 import com.muppet.sunnyweathertest.logic.mode.Weather
 import com.muppet.sunnyweathertest.logic.network.SunnyWeatherNetWork
 import kotlinx.coroutines.Dispatchers
@@ -10,13 +12,19 @@ import kotlin.coroutines.CoroutineContext
 
 object Repository {
 
-    fun refreshWeather(lnt: String, lat: String) = fire(Dispatchers.IO){
+    fun savePlace(place: Place) = PlaceDao.savePlace(place)
+
+    fun getSavedPlace() = PlaceDao.getSavedPlace()
+
+    fun isPlaceSaved() = PlaceDao.isPlaceSaved()
+
+    fun refreshWeather(lng: String, lat: String,placeName: String) = fire(Dispatchers.IO){
         coroutineScope {
             val deferredRealtime = async {
-                SunnyWeatherNetWork.getRealtimeWeather(lnt,lat)
+                SunnyWeatherNetWork.getRealtimeWeather(lng,lat)
             }
             val deferredDaily = async {
-                SunnyWeatherNetWork.getDailyWeather(lnt,lat)
+                SunnyWeatherNetWork.getDailyWeather(lng,lat)
             }
             val realtimeResponse = deferredRealtime.await()
             val dailyResponse = deferredDaily.await()

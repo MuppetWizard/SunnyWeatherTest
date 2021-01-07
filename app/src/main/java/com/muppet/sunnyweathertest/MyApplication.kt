@@ -3,7 +3,7 @@ package com.muppet.sunnyweathertest
 import android.app.Application
 import android.content.Context
 
-class Application : Application() {
+class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
