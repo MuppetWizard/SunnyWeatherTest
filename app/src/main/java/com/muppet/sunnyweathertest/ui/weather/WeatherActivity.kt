@@ -1,14 +1,18 @@
 package com.muppet.sunnyweathertest.ui.weather
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.muppet.sunnyweathertest.R
@@ -57,7 +61,7 @@ class WeatherActivity : AppCompatActivity() {
         swipeRefresh.setOnRefreshListener {
             refreshWeather()
         }
-        /*navBtn.setOnClickListener {
+        navBtn.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
@@ -71,7 +75,7 @@ class WeatherActivity : AppCompatActivity() {
                 val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 manager.hideSoftInputFromWindow(drawerView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             }
-        })*/
+        })
     }
 
     fun refreshWeather() {
